@@ -1,0 +1,20 @@
+####
+# This Dockerfile is used in order to build a container that runs the Quarkus application in JVM mode
+#
+# Before building the docker image run:
+#
+# mvn package
+#
+# Then, build the image with:
+#
+# docker build -f src/main/docker/Dockerfile.distroless -t quarkus/snello-datasource-distroless .
+#
+# Then run the container using:
+#
+# docker run -i --rm -p 8080:8080 quarkus/snello-datasource-distroless
+#
+###
+FROM cescoffier/native-base:latest
+COPY target/*-runner /application
+EXPOSE 8080
+CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
